@@ -14,6 +14,11 @@ namespace Lab3_23.Controllers
             _lab3Context = lab3Context;
         }
 
+
+
+
+
+
         [HttpGet]
         public async Task<IActionResult> Get()
         {
