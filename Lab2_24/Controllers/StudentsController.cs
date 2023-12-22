@@ -1,4 +1,5 @@
-﻿using Lab2_24.Models;
+﻿using Lab2_24.Data;
+using Lab2_24.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,13 @@ namespace Lab2_24.Controllers
     [ApiController]
     public class StudentsController : ControllerBase
     {
+        private readonly ProjectContext projectContext;
+
+        public StudentsController(ProjectContext projectContext)
+        {
+            this.projectContext = projectContext;
+        }
+
         public static List<Student> students = new List<Student>
         {
             new Student { Id = 1, Name = "Ana", Age = 21},
@@ -79,9 +87,11 @@ namespace Lab2_24.Controllers
         }
 
         [HttpPost("fromBody")]
-        public IActionResult AddWithFromBody([FromBody]Student student)
+        public async Task<IActionResult> AddWithFromBody([FromBody]Student student)
         {
             students.Add(student);
+            projectContext.Students.Add(student);
+            await projectContext.SaveChangesAsync();
             return Ok(students);
         }
 
