@@ -6,13 +6,13 @@ namespace Lab9.Repositories.GenericRepository
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
-        protected readonly ProjectContext _lab4Context;
+        protected readonly ProjectContext _projectContext;
         protected readonly DbSet<TEntity> _table;
 
-        public GenericRepository(ProjectContext lab4Context)
+        public GenericRepository(ProjectContext projectContext)
         {
-            _lab4Context = lab4Context;
-            _table = _lab4Context.Set<TEntity>();
+            _projectContext = projectContext;
+            _table = _projectContext.Set<TEntity>();
         }
 
      
@@ -82,12 +82,12 @@ namespace Lab9.Repositories.GenericRepository
         // Save
         public bool Save()
         {
-            return _lab4Context.SaveChanges() > 0;
+            return _projectContext.SaveChanges() > 0;
         }
 
         public async Task<bool> SaveAsync()
         {
-            return await _lab4Context.SaveChangesAsync() > 0;
+            return await _projectContext.SaveChangesAsync() > 0;
         }
     }
 }

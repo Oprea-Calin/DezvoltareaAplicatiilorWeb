@@ -19,6 +19,7 @@ import {CommonModule} from "@angular/common";
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from "@auth0/angular-jwt";
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AdminComponent } from './reactive-forms/admin/admin.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -56,6 +57,7 @@ export function tokenGetter() {
       { path: 'login', component: LoginComponent },
       { path: 'routing', canActivate: [AuthGuard], component: ParentComponent },
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'admin', component: AdminComponent },
 
 
     ])

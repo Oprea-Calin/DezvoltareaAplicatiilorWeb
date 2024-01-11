@@ -10,7 +10,7 @@ namespace Lab9.Services.UserService
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository;
+        public IUserRepository _userRepository;
         private readonly IJwtUtils _jwtUtils;
 
         public UserService(IUserRepository userRepository, IJwtUtils jwtUtils)
@@ -26,7 +26,7 @@ namespace Lab9.Services.UserService
 
         public async Task<UserLoginResponse> Login(UserLoginDto userDto)
         {
-            var user = await _userRepository.FindByUsername(userDto.UserName);
+            var user = _userRepository.FindByUsername(userDto.UserName);
 
             if (user == null || !BCryptNet.Verify(userDto.Password, user.Password))
             {
@@ -49,9 +49,39 @@ namespace Lab9.Services.UserService
                 Role = userRole,
                 Password = BCryptNet.HashPassword(userRegisterDto.Password)
             };
+            
 
             _userRepository.Create(userToCreate);
            return await _userRepository.SaveAsync();
+        }
+        public async Task AssignRoleToUser(string username, Role role)
+        {
+            var user = _userRepository.FindByUsername(username);
+            if (user != null)
+            {
+                user.Role = role;
+                user.DateModified = DateTime.Now;
+                await _userRepository.UpdateAsync(user);
+            }
+            else
+            {
+                throw new Exception("Utilizatorul nu a fost găsit.");
+            }
+        }
+
+        public async Task<bool> UpdateUserRole(string userId, Role model)
+        {
+            var user = await _userRepository.GetByIdAsync(userId);
+            if (user != null)
+            {
+                // Actualizează doar câmpurile care nu sunt nule în DTO
+                user.Role = model;
+                user.DateModified = DateTime.UtcNow;
+
+                await _userRepository.UpdateAsync(user);
+                return true; // Returnează true dacă actualizarea a fost un succes
+            }
+            return false; // Returnează false dacă utilizatorul nu a fost găsit
         }
     }
 }

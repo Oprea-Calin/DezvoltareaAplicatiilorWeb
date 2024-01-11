@@ -1,0 +1,17 @@
+<div>
+  <p>Account forms</p>
+  <form [formGroup]="adminForm">
+    <input formControlName="FirstName" placeholder="First Name" type="text">
+    <input formControlName="LastName" placeholder="Last Name" type="text">
+    <input formControlName="username" placeholder="Username" type="text">
+    <input formControlName="email" placeholder="Email" type="text">
+    <input formControlName="password" placeholder="Password" type="password">
+    <input formControlName="role" placeholder="Role" type="text">
+  </form>
+  <div>
+    <button (click)="update()"> Submit</button>
+  </div>
+  <div>
+    <p>{{ message }}</p>
+  </div>
+</div>

@@ -19,11 +19,13 @@ export class LoginComponent{
   constructor(private readonly formBuilder: FormBuilder, private readonly authenticationService: AuthenticationService, private router: Router) {
 
   }
+  message: any;
 
   login() {
     this.authenticationService.login(this.loginForm.value).subscribe(
       (data: any) => {
         this.authenticationService.addTokenToLocalStorage(data.token);
+        this.message = "User logged in!";
         this.router.navigate(['dashboard']);
       },
       response => {

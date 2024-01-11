@@ -11,5 +11,8 @@ namespace Lab9.Services.UserService
         User GetById(Guid id);
 
         Task<bool> Register(UserRegisterDto userRegisterDto, Role userRole);
+        Task AssignRoleToUser(string username, Role role);
+        Task<bool> UpdateUserRole(string userId, Role model);
+
     }
 }
