@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../core/services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,12 +16,24 @@ export class LoginComponent{
     password: ['', Validators.required],
   });
 
-  constructor(private readonly formBuilder: FormBuilder, private readonly authenticationService: AuthenticationService) {
+  constructor(private readonly formBuilder: FormBuilder, private readonly authenticationService: AuthenticationService, private router: Router) {
 
   }
 
   login() {
-    this.authenticationService.login(this.loginForm.value).subscribe((data: any) => this.authenticationService.addTokenToLocalStorage(data.token));
+    this.authenticationService.login(this.loginForm.value).subscribe(
+      (data: any) => {
+        this.authenticationService.addTokenToLocalStorage(data.token);
+        this.router.navigate(['dashboard']);
+      },
+      response => {
+
+      }
+    );
+      
+
+    console.log(this.loginForm.value);
+    
   }
 
 }

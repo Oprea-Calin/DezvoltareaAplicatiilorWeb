@@ -3,6 +3,7 @@ using Lab9.Helpers.Attributes;
 using Lab9.Models.Enums;
 using Lab9.Services.UserService;
 using Microsoft.AspNetCore.Mvc;
+using Lab9.Helpers.JwtUtil;
 
 namespace Lab9.Controllers
 {
@@ -11,6 +12,7 @@ namespace Lab9.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly JwtUtils _JwtToken;
 
         public UsersController(IUserService userService)
         {

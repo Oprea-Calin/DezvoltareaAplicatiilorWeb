@@ -132,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "Lab9"
+  "defaultProject": "Lab9",
+  "cli": {
+    "analytics": false
+  }
 }

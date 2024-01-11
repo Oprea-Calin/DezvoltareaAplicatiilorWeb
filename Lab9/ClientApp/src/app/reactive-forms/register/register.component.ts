@@ -24,7 +24,8 @@ export class RegisterComponent {
 
   register() {
       this.authenticationService.register(this.registerForm.value)
-        .subscribe((data:any) => console.log(data));
+        .subscribe((data: any) => console.log(data));
+    console.log(this.registerForm.value);
   }
 
 }
