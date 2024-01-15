@@ -7,6 +7,7 @@ using Lab9.Helpers.JwtUtil;
 using System.Data;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using Lab9.Models;
 
 namespace Lab9.Controllers
 {
@@ -31,9 +32,9 @@ namespace Lab9.Controllers
 
         [AllowAnonymous]
         [HttpGet("showData")]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<List<User>> GetAllUsers()
         {
-            return Ok( await _userService.GetAllAsync());
+            return (await _userService.GetAllAsync());
         }
 
         [AllowAnonymous]

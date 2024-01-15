@@ -27,7 +27,7 @@
         "ASPNETCORE_URLS": "https://localhost:7092;http://localhost:5091"
       },
       "distributionName": ""
-    }-
+    }
   },
   "iisSettings": {
     "windowsAuthentication": false,

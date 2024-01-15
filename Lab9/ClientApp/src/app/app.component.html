@@ -5,9 +5,13 @@
   <router-outlet></router-outlet>
  
   <table>
+    <tr>
+      <th>
+        Username
+      </th>
+        </tr>
     <tr *ngFor="let user of users">
-      <td>{{user.id}}</td>
-      <td></td>
+      <td>{{user.username}}</td>
     </tr>
   </table>
 </main>
