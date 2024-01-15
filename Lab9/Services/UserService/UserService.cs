@@ -5,6 +5,7 @@ using Lab9.Models;
 using Lab9.Models.Enums;
 using Lab9.Repositories.UserRepository;
 using BCryptNet = BCrypt.Net.BCrypt;
+using AutoMapper;
 
 namespace Lab9.Services.UserService
 {
@@ -12,18 +13,28 @@ namespace Lab9.Services.UserService
     {
         public IUserRepository _userRepository;
         private readonly IJwtUtils _jwtUtils;
+        public IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, IJwtUtils jwtUtils)
+        public UserService(IUserRepository userRepository, IJwtUtils jwtUtils, IMapper mapper)
         {
             _userRepository = userRepository;
             _jwtUtils = jwtUtils;
+            _mapper = mapper;
         }
 
         public User GetById(Guid id)
         {
             return _userRepository.FindById(id);
         }
+        public async Task<List<User>> GetAllAsync()
+        {
+            var users = await _userRepository.GetAllAsync();
+            if (users == null) throw new Exception("No users found.");
+            List<User> result = _mapper.Map<List<User>>(users);
 
+            return result;
+
+        }
         public async Task<UserLoginResponse> Login(UserLoginDto userDto)
         {
             var user = _userRepository.FindByUsername(userDto.UserName);

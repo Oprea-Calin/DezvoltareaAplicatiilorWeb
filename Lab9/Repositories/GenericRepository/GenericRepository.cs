@@ -22,6 +22,11 @@ namespace Lab9.Repositories.GenericRepository
             return await _table.AsNoTracking().ToListAsync();
         }
 
+        public async Task<List<TEntity>> GetAllAsync()
+        {
+            var allItems = await _table.AsNoTracking().ToListAsync();
+            return allItems;
+        }
 
         // Create
         public void Create(TEntity entity)

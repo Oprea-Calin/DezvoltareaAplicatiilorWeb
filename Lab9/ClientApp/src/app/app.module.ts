@@ -57,8 +57,7 @@ export function tokenGetter() {
       { path: 'login', component: LoginComponent },
       { path: 'routing', canActivate: [AuthGuard], component: ParentComponent },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'admin', component: AdminComponent },
-
+      { path: 'admin', component: AdminComponent }
 
     ])
   ],

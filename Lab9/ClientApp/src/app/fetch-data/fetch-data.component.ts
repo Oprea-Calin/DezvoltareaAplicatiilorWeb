@@ -1,26 +1,29 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ApiService } from '../core/services/api.service';
+import { user } from '../data/interfaces/user';
 
 @Component({
   selector: 'app-fetch-data',
   templateUrl: './fetch-data.component.html'
 })
-export class FetchDataComponent {
-  public forecasts: WeatherForecast[] = [];
+export class FetchDataComponent implements OnInit{
+  
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    let token = localStorage.getItem('JwtToken');
-    let headers = new HttpHeaders();
-    headers.set('Authorization', 'Beaere ' + token);
-    http.get<WeatherForecast[]>(baseUrl + 'users/check-auth', { headers }).subscribe(result => {
-     console.log(result)
-    }, error => console.error(error));
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private apiservice : ApiService) {
+
   }
-}
+  
+  ngOnInit(): void {
+    //this.getAllUsers();
+    
 
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
+  }
+  //getAllUsers() {
+  //  this.apiservice.getAllData().subscribe((res) => {
+   //   console.log(res);
+   //   this.users = res;
+   // });
+
+  }
+  

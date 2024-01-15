@@ -13,6 +13,7 @@ namespace Lab9.Services.UserService
         Task<bool> Register(UserRegisterDto userRegisterDto, Role userRole);
         Task AssignRoleToUser(string username, Role role);
         Task<bool> UpdateUserRole(string userId, Role model);
+        Task<List<User>> GetAllAsync();
 
     }
 }

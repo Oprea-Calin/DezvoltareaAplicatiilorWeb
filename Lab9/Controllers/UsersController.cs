@@ -30,6 +30,13 @@ namespace Lab9.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet("showData")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            return Ok( await _userService.GetAllAsync());
+        }
+
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserLoginDto userLoginDto)
         {

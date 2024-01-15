@@ -1,7 +1,15 @@
 <body>
 <app-nav-menu></app-nav-menu>
 <main class="container">
+
   <router-outlet></router-outlet>
+ 
+  <table>
+    <tr *ngFor="let user of users">
+      <td>{{user.id}}</td>
+      <td></td>
+    </tr>
+  </table>
 </main>
 </body>
 

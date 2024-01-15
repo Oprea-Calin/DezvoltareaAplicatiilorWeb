@@ -6,7 +6,9 @@ namespace Lab9.Repositories.GenericRepository
     {
         // Get all data
         Task<List<TEntity>> GetAll();
-        
+        Task<List<TEntity>> GetAllAsync();
+
+
         // Create data
         void Create(TEntity entity);
         Task CreateAsync(TEntity entity);

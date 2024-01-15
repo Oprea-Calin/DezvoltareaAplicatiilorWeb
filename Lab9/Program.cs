@@ -16,6 +16,7 @@ builder.Services.AddDbContext<ProjectContext>(options => options.UseMySql(
 builder.Services.AddServices();
 builder.Services.AddHelpers();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -34,6 +35,10 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:JwtTokenSecret"]))
     };
 });
+builder.Services.AddCors(options => options.AddPolicy(name: "Policy",
+    policy => {
+        policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+}));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -43,7 +48,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-
+app.UseCors("Policy");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
