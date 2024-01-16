@@ -13,5 +13,7 @@ namespace Lab9.Data
            
             base.OnModelCreating(modelBuilder);
         }
+
+        
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using Lab9.Data.DTOs;
+﻿using Lab9.Data.DTOs;
 using Lab9.Models;
 using Lab9.Models.Enums;
 
@@ -8,12 +7,13 @@ namespace Lab9.Services.UserService
     public interface IUserService
     {
         Task<UserLoginResponse> Login(UserLoginDto user);
-        User GetById(Guid id);
+        Task<User> GetById(Guid id);
 
         Task<bool> Register(UserRegisterDto userRegisterDto, Role userRole);
-        Task AssignRoleToUser(string username, Role role);
-        Task<bool> UpdateUserRole(string userId, Role model);
+        Task<bool> UpdateUserRole(Guid userId, Role model);
         Task<List<User>> GetAllAsync();
+        Task<User> Delete(string name);
+        Task<User> GetByName(string name);
 
     }
 }

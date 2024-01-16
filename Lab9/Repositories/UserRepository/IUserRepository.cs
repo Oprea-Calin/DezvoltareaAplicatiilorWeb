@@ -7,12 +7,16 @@ namespace Lab9.Repositories.UserRepository
     {
         User FindByUsername(string username);
         //Task<User> FindByUsernameAndPassword(string username, string password);
-
+        Task<List<User>> GetUsersAsync();
 
         Task<List<User>> FindAll();
 
         Task<List<User>> FindAllActive();
         Task UpdateAsync(User user);
-        Task<User> GetByIdAsync(string id);
+        Task<User> GetUserById(string id);
+        Task<User> FindByUsernameAsync(string username);
+        Task<User> DeleteUser(string name);
+
+
     }
 }

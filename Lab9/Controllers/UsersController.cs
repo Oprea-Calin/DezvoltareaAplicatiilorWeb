@@ -38,6 +38,14 @@ namespace Lab9.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet("get-user-by-name")]
+        public async Task<User> GetUserById(string name)
+        {
+            return (await _userService.GetByName(name));
+        }
+
+
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserLoginDto userLoginDto)
         {
@@ -79,35 +87,9 @@ namespace Lab9.Controllers
 
             return Ok(response);
         }
-        [HttpPut("AssignRole")]
-        [Authorize(Role.Admin)] 
-        public async Task<IActionResult> AssignRoleToUser([FromQuery] string username, [FromQuery] Role role)
-        {
-            try
-            {
-                await _userService.AssignRoleToUser(username, role);
-                return Ok("Rolul a fost atribuit cu succes.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
-        [HttpPut("UpdateProfile")]
-        [Authorize(Role.Admin)]
-        public async Task<IActionResult> UpdateProfile([FromBody] Role model)
-        {
-            // Obținem ID-ul utilizatorului autentificat din claim-urile token-ului JWT
-            var userId = User.FindFirstValue(JwtRegisteredClaimNames.Jti);
+       
 
-            var result = await _userService.UpdateUserRole(userId, model);
-            if (result)
-            {
-                return Ok(new { message = " Profilul a fost actualizat cu succes." });
-            }
-            return BadRequest("Actualizarea profilului a eșuat.");
-        }
 
         [Authorize]
         [HttpGet("check-auth-without-role")]
@@ -137,5 +119,14 @@ namespace Lab9.Controllers
         {
             return Ok("Account is user or admin");
         }
+
+        [AllowAnonymous]
+        [HttpDelete("Delete-user")]
+        public async Task<IActionResult> DeleteUserAsync(string username)
+        {
+            await _userService.Delete(username);
+            return Ok();
+        }
+
     }
 }

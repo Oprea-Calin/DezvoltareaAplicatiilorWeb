@@ -6,6 +6,7 @@ using Lab9.Models.Enums;
 using Lab9.Repositories.UserRepository;
 using BCryptNet = BCrypt.Net.BCrypt;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lab9.Services.UserService
 {
@@ -22,9 +23,13 @@ namespace Lab9.Services.UserService
             _mapper = mapper;
         }
 
-        public User GetById(Guid id)
+        public Task<User> GetById(Guid id)
         {
-            return _userRepository.FindById(id);
+            return _userRepository.GetUserById(id.ToString());
+        }
+        public Task<User> GetByName(string name)
+        {
+            return _userRepository.FindByUsernameAsync(name);
         }
         public async Task<List<User>> GetAllAsync()
         {
@@ -80,9 +85,9 @@ namespace Lab9.Services.UserService
             }
         }
 
-        public async Task<bool> UpdateUserRole(string userId, Role model)
+        public async Task<bool> UpdateUserRole(Guid userId, Role model)
         {
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _userRepository.GetUserById(userId.ToString());
             if (user != null)
             {
                 // Actualizează doar câmpurile care nu sunt nule în DTO
@@ -93,6 +98,12 @@ namespace Lab9.Services.UserService
                 return true; // Returnează true dacă actualizarea a fost un succes
             }
             return false; // Returnează false dacă utilizatorul nu a fost găsit
+        }
+
+        public async Task<User> Delete(string name)
+        {
+           return await _userRepository.DeleteUser(name);
+            
         }
     }
 }
