@@ -1,5 +1,6 @@
 ﻿using Lab9.Models.Base;
 using Lab9.Models.Enums;
+using Proiect.Data.Models;
 using System.Text.Json.Serialization;
 
 namespace Lab9.Models
@@ -18,5 +19,7 @@ namespace Lab9.Models
         public string Password { get; set; }
 
         public Role Role { get; set; }
+        public ICollection<Comanda>? Comenzi {  get; set; }
+
     }
 }

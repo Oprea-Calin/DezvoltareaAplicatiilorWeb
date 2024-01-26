@@ -14,7 +14,7 @@ namespace Lab9.Controllers
     [Route("[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
-    {
+    {   
         private readonly IUserService _userService;
         private readonly JwtUtils _JwtToken;
 
@@ -88,37 +88,6 @@ namespace Lab9.Controllers
             return Ok(response);
         }
 
-       
-
-
-        [Authorize]
-        [HttpGet("check-auth-without-role")]
-        public IActionResult GetText()
-        {
-            return Ok("Account is logged in");
-        }
-
-
-        [Authorize(Role.User)]
-        [HttpGet("check-auth-user")]
-        public IActionResult GetTextUser()
-        {
-            return Ok("User is logged in");
-        }
-
-        [Authorize(Role.Admin)]
-        [HttpGet("check-auth-admin")]
-        public IActionResult GetTextAdmin()
-        {
-            return Ok("Admin is logged in");
-        }
-
-        [Authorize(Role.Admin, Role.User)]
-        [HttpGet("check-auth-admin-and-user")]
-        public IActionResult GetTextAdminUser()
-        {
-            return Ok("Account is user or admin");
-        }
 
         [AllowAnonymous]
         [HttpDelete("Delete-user")]

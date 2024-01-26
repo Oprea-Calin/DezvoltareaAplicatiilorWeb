@@ -8,6 +8,7 @@
     <SpaProxyServerUrl>https://localhost:44473</SpaProxyServerUrl>
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
     <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Proiect</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -39,7 +40,6 @@
   <ItemGroup>
     <Folder Include="ClientApp\src\app\core\guards\" />
     <Folder Include="ClientApp\src\app\core\interceptors\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
