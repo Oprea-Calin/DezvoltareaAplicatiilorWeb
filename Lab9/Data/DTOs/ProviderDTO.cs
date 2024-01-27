@@ -8,6 +8,6 @@ namespace Proiect.Data.DTOs
         public string Name {  get; set; }
         public string Adresa { get; set; }
         public int CUI { get; set; }
-        public Articol articol { get; set; }
+        //public Articol articol { get; set; }
     }
 }
