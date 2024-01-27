@@ -8,6 +8,7 @@ namespace Proiect.Data.Models
         public string Adresa {  get; set; }
         public int CUI {  get; set; }
         public Articol articol { get; set; }
+       // public Guid articolID { get; set; }
 
     }
 }

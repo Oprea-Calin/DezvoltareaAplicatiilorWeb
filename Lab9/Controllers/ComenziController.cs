@@ -19,9 +19,9 @@ namespace Proiect.Controllers
 
         [HttpGet]
         //[Authorize(Role.Admin,Role.User)]
-        public async Task<List<ComandaDTO>> GetAllComenzi()
+        public async Task<IActionResult> GetAllComenzi()
         {
-            return await this._comenziService.GetAllC();
+            return Ok(await this._comenziService.GetAllC());
         }
 
         [HttpPost]

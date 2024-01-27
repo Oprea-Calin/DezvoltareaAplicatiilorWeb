@@ -10,6 +10,6 @@ namespace Proiect.Data.DTOs
         public string Descriere {  get; set; }
         public int Pret { get; set; }
         public int Cantitate {  get; set; }
-        public Provider Provider { get; set; }
+        //public Provider Provider { get; set; }
     }
 }

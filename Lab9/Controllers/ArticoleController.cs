@@ -21,5 +21,11 @@ namespace Proiect.Controllers
             await this._articoleService.AddArticol(articol);
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllArticole()
+        {
+            return Ok(await this._articoleService.GetAllAsync());
+        }
     }
 }

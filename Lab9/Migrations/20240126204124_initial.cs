@@ -15,23 +15,22 @@ namespace Proiect.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Articole",
+                name: "Provideri",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Denumire = table.Column<string>(type: "longtext", nullable: false)
+                    Nume = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descriere = table.Column<string>(type: "longtext", nullable: false)
+                    Adresa = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Pret = table.Column<int>(type: "int", nullable: false),
-                    Cantitate = table.Column<int>(type: "int", nullable: false),
+                    CUI = table.Column<int>(type: "int", nullable: false),
+                    articolID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     DateCreated = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DateModified = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    DateModified = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Articole", x => x.Id);
+                    table.PrimaryKey("PK_Provideri", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -52,8 +51,7 @@ namespace Proiect.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Role = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DateModified = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    DateModified = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -62,27 +60,26 @@ namespace Proiect.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Provideri",
+                name: "Articole",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Nume = table.Column<string>(type: "longtext", nullable: false)
+                    Denumire = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Adresa = table.Column<string>(type: "longtext", nullable: false)
+                    Descriere = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CUI = table.Column<int>(type: "int", nullable: false),
-                    articolID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Pret = table.Column<int>(type: "int", nullable: false),
+                    Cantitate = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DateModified = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    DateModified = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Provideri", x => x.Id);
+                    table.PrimaryKey("PK_Articole", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Provideri_Articole_articolID",
-                        column: x => x.articolID,
-                        principalTable: "Articole",
+                        name: "FK_Articole_Provideri_Id",
+                        column: x => x.Id,
+                        principalTable: "Provideri",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -95,17 +92,16 @@ namespace Proiect.Migrations
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Email = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    userId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     DateCreated = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DateModified = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    DateModified = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comenzi", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comenzi_Users_userId",
-                        column: x => x.userId,
+                        name: "FK_Comenzi_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -143,15 +139,9 @@ namespace Proiect.Migrations
                 column: "IdArticol");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comenzi_userId",
+                name: "IX_Comenzi_UserId",
                 table: "Comenzi",
-                column: "userId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Provideri_articolID",
-                table: "Provideri",
-                column: "articolID",
-                unique: true);
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -161,13 +151,13 @@ namespace Proiect.Migrations
                 name: "ComandaArticole");
 
             migrationBuilder.DropTable(
-                name: "Provideri");
+                name: "Articole");
 
             migrationBuilder.DropTable(
                 name: "Comenzi");
 
             migrationBuilder.DropTable(
-                name: "Articole");
+                name: "Provideri");
 
             migrationBuilder.DropTable(
                 name: "Users");

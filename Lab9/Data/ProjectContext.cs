@@ -15,33 +15,42 @@ namespace Lab9.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             //one to many
             modelBuilder.Entity<User>()
                 .HasMany(m1 => m1.Comenzi)
                 .WithOne(m2 => m2.User);
 
+            //one to many
+          //  modelBuilder.Entity<Comanda>()
+           //     .HasMany(m7 => m7.Articole)
+             //   .WithOne(m8 => m8.Comanda);
+
             //one to one
             modelBuilder.Entity<Provider>()
                 .HasOne(m3 => m3.articol)
                 .WithOne(m4 => m4.Provider)
-                .HasForeignKey<Articol>(m4 => m4.Id);
+                .HasForeignKey<Articol>(m4 => m4.Id)
+                .OnDelete(DeleteBehavior.Cascade);
 
             //many to many
             modelBuilder.Entity<ComandaArticol>().HasKey(mr => new { mr.IdComanda, mr.IdArticol });
 
             modelBuilder.Entity<ComandaArticol>()
                 .HasOne(mr => mr.Comanda)
-                .WithMany(m5 => m5.comandaArticole)
-                .HasForeignKey(mr => mr.IdComanda);
+                .WithMany(m1 => m1.ComandaArticole)
+                .HasForeignKey(mr => mr.IdComanda)
+                .IsRequired(false);
 
             modelBuilder.Entity<ComandaArticol>()
                 .HasOne(mr => mr.Articol)
-                .WithMany(m6 => m6.comandaArticole)
-                .HasForeignKey(mr => mr.IdArticol);
+                .WithMany(m6 => m6.ComandaArticole)
+                .HasForeignKey(mr => mr.IdArticol)
+                .IsRequired(false);
 
             
 
-
+            
 
             base.OnModelCreating(modelBuilder);
         }

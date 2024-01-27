@@ -18,10 +18,7 @@ namespace Lab9.Repositories.UserRepository
             return await _table.ToListAsync();
         }
 
-        public async Task<List<User>> FindAllActive()
-        {
-            return await _table.GetActiveUser().ToListAsync();
-        }
+       
 
         public User FindByUsername(string username)
         {

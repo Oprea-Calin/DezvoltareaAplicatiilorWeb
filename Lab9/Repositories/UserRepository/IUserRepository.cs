@@ -11,7 +11,6 @@ namespace Lab9.Repositories.UserRepository
 
         Task<List<User>> FindAll();
 
-        Task<List<User>> FindAllActive();
         Task UpdateAsync(User user);
         Task<User> GetUserById(string id);
         Task<User> FindByUsernameAsync(string username);

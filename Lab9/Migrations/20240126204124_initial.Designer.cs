@@ -3,6 +3,7 @@ using System;
 using Lab9.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Proiect.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20240126204124_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,7 +59,7 @@ namespace Proiect.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Proiect.Data.Models.Articol", b =>
@@ -87,7 +90,7 @@ namespace Proiect.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Articole", (string)null);
+                    b.ToTable("Articole");
                 });
 
             modelBuilder.Entity("Proiect.Data.Models.Comanda", b =>
@@ -113,28 +116,22 @@ namespace Proiect.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comenzi", (string)null);
+                    b.ToTable("Comenzi");
                 });
 
             modelBuilder.Entity("Proiect.Data.Models.ComandaArticol", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("IdComanda")
                         .HasColumnType("char(36)");
 
                     b.Property<Guid>("IdArticol")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("IdComanda")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasAlternateKey("IdComanda", "IdArticol");
+                    b.HasKey("IdComanda", "IdArticol");
 
                     b.HasIndex("IdArticol");
 
-                    b.ToTable("ComandaArticole", (string)null);
+                    b.ToTable("ComandaArticole");
                 });
 
             modelBuilder.Entity("Proiect.Data.Models.Provider", b =>
@@ -160,9 +157,12 @@ namespace Proiect.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<Guid>("articolID")
+                        .HasColumnType("char(36)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Provideri", (string)null);
+                    b.ToTable("Provideri");
                 });
 
             modelBuilder.Entity("Proiect.Data.Models.Articol", b =>
@@ -191,11 +191,15 @@ namespace Proiect.Migrations
                 {
                     b.HasOne("Proiect.Data.Models.Articol", "Articol")
                         .WithMany("comandaArticole")
-                        .HasForeignKey("IdArticol");
+                        .HasForeignKey("IdArticol")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Proiect.Data.Models.Comanda", "Comanda")
                         .WithMany("comandaArticole")
-                        .HasForeignKey("IdComanda");
+                        .HasForeignKey("IdComanda")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Articol");
 

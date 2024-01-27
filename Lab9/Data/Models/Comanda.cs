@@ -7,6 +7,7 @@ namespace Proiect.Data.Models
     {
         public string Email {  get; set; }
         public User User { get; set; }
-        public ICollection<ComandaArticol> comandaArticole {  get; set; }
+       // public ICollection<Articol> Articole {  get; set; }
+        public ICollection<ComandaArticol>? ComandaArticole { get; set; }
     }
 }

@@ -9,8 +9,11 @@ namespace Proiect.Data.Models
         public string Descriere {  get; set; }
         public int Pret {  get; set; }
         public int Cantitate {  get; set; }
-        public Provider Provider { get; set; }
-        public ICollection<ComandaArticol> comandaArticole {  get; set; }
+        
+        public Provider? Provider { get; set; }
+
+       //public Comanda Comanda {  get; set; }
+        public ICollection<ComandaArticol>? ComandaArticole { get; set; }
 
     }
 }

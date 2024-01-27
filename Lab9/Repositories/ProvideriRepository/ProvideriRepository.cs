@@ -7,5 +7,7 @@ namespace Proiect.Repositories.ProvideriRepository
     public class ProvideriRepository: GenericRepository<Provider>, IProvideriRepository
     {
         public ProvideriRepository(ProjectContext projectContext) :base(projectContext){ }
+
+
     }
 }

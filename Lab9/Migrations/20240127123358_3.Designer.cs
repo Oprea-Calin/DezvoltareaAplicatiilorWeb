@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Proiect.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20240126133306_initial")]
-    partial class initial
+    [Migration("20240127123358_3")]
+    partial class _3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,9 +41,6 @@ namespace Proiect.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -88,9 +85,6 @@ namespace Proiect.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<int>("Pret")
                         .HasColumnType("int");
 
@@ -115,28 +109,31 @@ namespace Proiect.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<Guid>("userId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("userId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comenzi");
                 });
 
             modelBuilder.Entity("Proiect.Data.Models.ComandaArticol", b =>
                 {
-                    b.Property<Guid>("IdComanda")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
                     b.Property<Guid>("IdArticol")
                         .HasColumnType("char(36)");
 
-                    b.HasKey("IdComanda", "IdArticol");
+                    b.Property<Guid>("IdComanda")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("IdComanda", "IdArticol");
 
                     b.HasIndex("IdArticol");
 
@@ -162,9 +159,6 @@ namespace Proiect.Migrations
                     b.Property<DateTime?>("DateModified")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<string>("Nume")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -174,51 +168,44 @@ namespace Proiect.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("articolID")
-                        .IsUnique();
-
                     b.ToTable("Provideri");
+                });
+
+            modelBuilder.Entity("Proiect.Data.Models.Articol", b =>
+                {
+                    b.HasOne("Proiect.Data.Models.Provider", "Provider")
+                        .WithOne("articol")
+                        .HasForeignKey("Proiect.Data.Models.Articol", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Provider");
                 });
 
             modelBuilder.Entity("Proiect.Data.Models.Comanda", b =>
                 {
-                    b.HasOne("Lab9.Models.User", "user")
+                    b.HasOne("Lab9.Models.User", "User")
                         .WithMany("Comenzi")
-                        .HasForeignKey("userId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("user");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Proiect.Data.Models.ComandaArticol", b =>
                 {
                     b.HasOne("Proiect.Data.Models.Articol", "Articol")
                         .WithMany("comandaArticole")
-                        .HasForeignKey("IdArticol")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdArticol");
 
                     b.HasOne("Proiect.Data.Models.Comanda", "Comanda")
                         .WithMany("comandaArticole")
-                        .HasForeignKey("IdComanda")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdComanda");
 
                     b.Navigation("Articol");
 
                     b.Navigation("Comanda");
-                });
-
-            modelBuilder.Entity("Proiect.Data.Models.Provider", b =>
-                {
-                    b.HasOne("Proiect.Data.Models.Articol", "articol")
-                        .WithOne("Provider")
-                        .HasForeignKey("Proiect.Data.Models.Provider", "articolID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("articol");
                 });
 
             modelBuilder.Entity("Lab9.Models.User", b =>
@@ -228,15 +215,18 @@ namespace Proiect.Migrations
 
             modelBuilder.Entity("Proiect.Data.Models.Articol", b =>
                 {
-                    b.Navigation("Provider")
-                        .IsRequired();
-
                     b.Navigation("comandaArticole");
                 });
 
             modelBuilder.Entity("Proiect.Data.Models.Comanda", b =>
                 {
                     b.Navigation("comandaArticole");
+                });
+
+            modelBuilder.Entity("Proiect.Data.Models.Provider", b =>
+                {
+                    b.Navigation("articol")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

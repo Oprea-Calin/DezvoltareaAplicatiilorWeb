@@ -17,26 +17,27 @@ namespace Proiect.Services.ComenziService
             _mapper = mapper;   
             _articoleRepository = articole;
         }
-        public async Task<List<ComandaDTO>> GetAllC()
+        public async Task<List<Comanda>> GetAllC()
         {
             var comenzi = await _comenziRepository.GetAllAsync();
-            return _mapper.Map<List<ComandaDTO>>(comenzi);
+            List<Comanda> comands = _mapper.Map<List<Comanda>>(comenzi);
+            return comands;
         }
         public async Task AddComanda(ComandaDTO comanda)
         {
 
-            var newComanda = _mapper.Map<Comanda>(comanda);
+           // var newComanda = _mapper.Map<Comanda>(comanda);
 
 
-            //var newcomanda = new Comanda
-            //{
-             //   Id = comanda.Id,
-              //  Email = comanda.Email,
-               // comandaArticole = comanda.Articole
+            var newcomanda = new Comanda
+            {
+                Id = comanda.Id,
+                Email = comanda.Email,
+                ComandaArticole = comanda.Articole
 
-            //};
+            };
 
-            await _comenziRepository.CreateAsync(newComanda);
+            await _comenziRepository.CreateAsync(newcomanda);
             await _comenziRepository.SaveAsync();
         }
     }

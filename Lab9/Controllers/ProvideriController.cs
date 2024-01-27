@@ -7,7 +7,7 @@ namespace Proiect.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProvideriController: ControllerBase
+    public class ProvideriController : ControllerBase
     {
         public readonly IProvideriService _provideriService;
 
@@ -22,6 +22,13 @@ namespace Proiect.Controllers
 
             await this._provideriService.AddProvider(provider);
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllProvideri()
+        {
+            return Ok(await this._provideriService.GetAllP());
+
         }
     }
 }

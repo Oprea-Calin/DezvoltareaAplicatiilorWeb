@@ -13,6 +13,5 @@ namespace Lab9.Models.Base
 
         public DateTime? DateModified { get; set; }
 
-        public bool IsDeleted { get; set; } = false;
     }
 }

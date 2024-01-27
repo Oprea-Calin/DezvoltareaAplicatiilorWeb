@@ -25,11 +25,18 @@ namespace Proiect.Services.ArticoleService
                 Descriere = articol.Descriere,
                 Pret = articol.Pret,
                 Cantitate = articol.Cantitate,
-                Provider = articol.Provider
+                //Provider = articol.Provider
 
             };
             await _articoleRepository.CreateAsync(newArt);
             await _articoleRepository.SaveAsync();
+        }
+
+        public async Task<List<Articol>> GetAllAsync()
+        {
+            var articole = await _articoleRepository.GetAllAsync();
+            List<Articol> articols = _mapper.Map<List<Articol>>(articole);
+            return articols;
         }
     }
 }
