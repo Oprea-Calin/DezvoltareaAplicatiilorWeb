@@ -26,18 +26,24 @@ namespace Proiect.Services.ComenziService
         public async Task AddComanda(ComandaDTO comanda)
         {
 
-           // var newComanda = _mapper.Map<Comanda>(comanda);
+             var newComanda = _mapper.Map<Comanda>(comanda);
 
 
-            var newcomanda = new Comanda
+            // var newcomanda = new Comanda
             {
-                Id = comanda.Id,
-                Email = comanda.Email,
-                ComandaArticole = comanda.Articole
-
+            //   Id = comanda.Id,
+           //   Email = comanda.Email,
+                
+             //ComandaArticole = comanda.Articole
+               
             };
 
-            await _comenziRepository.CreateAsync(newcomanda);
+            
+
+
+
+
+            await _comenziRepository.CreateAsync(newComanda);
             await _comenziRepository.SaveAsync();
         }
     }

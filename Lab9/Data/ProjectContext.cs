@@ -40,13 +40,15 @@ namespace Lab9.Data
                 .HasOne(mr => mr.Comanda)
                 .WithMany(m1 => m1.ComandaArticole)
                 .HasForeignKey(mr => mr.IdComanda)
-                .IsRequired(false);
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<ComandaArticol>()
                 .HasOne(mr => mr.Articol)
                 .WithMany(m6 => m6.ComandaArticole)
                 .HasForeignKey(mr => mr.IdArticol)
-                .IsRequired(false);
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.NoAction);
 
             
 

@@ -3,6 +3,7 @@ using System;
 using Lab9.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Proiect.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20240127144458_6")]
+    partial class _6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,9 +106,13 @@ namespace Proiect.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("IdComanda")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
@@ -117,10 +124,10 @@ namespace Proiect.Migrations
 
             modelBuilder.Entity("Proiect.Data.Models.ComandaArticol", b =>
                 {
-                    b.Property<Guid?>("IdComanda")
+                    b.Property<Guid>("IdComanda")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid?>("IdArticol")
+                    b.Property<Guid>("IdArticol")
                         .HasColumnType("char(36)");
 
                     b.HasKey("IdComanda", "IdArticol");
@@ -173,7 +180,9 @@ namespace Proiect.Migrations
                 {
                     b.HasOne("Lab9.Models.User", "User")
                         .WithMany("Comenzi")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -182,13 +191,11 @@ namespace Proiect.Migrations
                 {
                     b.HasOne("Proiect.Data.Models.Articol", "Articol")
                         .WithMany("ComandaArticole")
-                        .HasForeignKey("IdArticol")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("IdArticol");
 
                     b.HasOne("Proiect.Data.Models.Comanda", "Comanda")
                         .WithMany("ComandaArticole")
-                        .HasForeignKey("IdComanda")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("IdComanda");
 
                     b.Navigation("Articol");
 

@@ -11,11 +11,11 @@ namespace Proiect.Data.Models
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
       //  public Guid Id { get; set; }
 
-        public Guid IdComanda { get; set; }
+        public Guid? IdComanda { get; set; }
         public Comanda Comanda { get; set; }
 
 
-        public Guid IdArticol {  get; set; }
+        public Guid? IdArticol {  get; set; }
         public Articol Articol { get; set; }
     }
 }
