@@ -16,7 +16,7 @@ namespace Proiect.Controllers
             _provideriService = provideriService;
         }
 
-        [HttpPost]
+        [HttpPost("Create Provider")]
         public async Task<IActionResult> AddProvider(ProviderDTO provider)
         {
 

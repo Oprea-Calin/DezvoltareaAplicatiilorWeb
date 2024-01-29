@@ -2,9 +2,11 @@
 using Lab9.Repositories.UserRepository;
 using Lab9.Services.UserService;
 using Proiect.Repositories.ArticoleRepository;
+using Proiect.Repositories.ComenziArticolRepozitory;
 using Proiect.Repositories.ComenziRepository;
 using Proiect.Repositories.ProvideriRepository;
 using Proiect.Services.ArticoleService;
+using Proiect.Services.ComenziArticoleService;
 using Proiect.Services.ComenziService;
 using Proiect.Services.ProvideriService;
 
@@ -18,6 +20,7 @@ namespace Lab9.Helpers.Extensions
             services.AddTransient<IComenziRepository, ComenziRepository>();
             services.AddTransient<IArticoleRepository, ArticoleRepository>();
             services.AddTransient<IProvideriRepository, ProvideriRepository>();
+            services.AddTransient<IComenziArticolRepository, ComenziArticolRepository>();
 
 
             return services;
@@ -29,6 +32,7 @@ namespace Lab9.Helpers.Extensions
             services.AddTransient<IComenziService, ComenziService>();
             services.AddTransient<IProvideriService, ProvideriService>();
             services.AddTransient<IArticoleService, ArticoleService>();
+            services.AddTransient<IComenziArticolService, ComenziArticolService>();
 
             return services;
         }

@@ -18,17 +18,8 @@ namespace Proiect.Services.ArticoleService
         }
         public async Task AddArticol(ArticolDTO articol)
         {
-            var newArt = new Articol
-            {
-                Id = articol.Id,
-                Denumire = articol.Denumire,
-                Descriere = articol.Descriere,
-                Pret = articol.Pret,
-                Cantitate = articol.Cantitate,
-                //Provider = articol.Provider
-
-            };
-            await _articoleRepository.CreateAsync(newArt);
+            var newArticol = _mapper.Map<Articol>(articol);
+            await _articoleRepository.CreateAsync(newArticol);
             await _articoleRepository.SaveAsync();
         }
 
@@ -38,5 +29,7 @@ namespace Proiect.Services.ArticoleService
             List<Articol> articols = _mapper.Map<List<Articol>>(articole);
             return articols;
         }
+
+        
     }
 }

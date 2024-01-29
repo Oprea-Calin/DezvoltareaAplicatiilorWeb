@@ -12,7 +12,9 @@ namespace Lab9.Repositories.UserRepository
         Task<List<User>> FindAll();
 
         Task UpdateAsync(User user);
-        Task<User> GetUserById(string id);
+        Task<User> GetUserById(Guid id);
+        User GetUserByIdA(Guid id);
+
         Task<User> FindByUsernameAsync(string username);
         Task<User> DeleteUser(string name);
 

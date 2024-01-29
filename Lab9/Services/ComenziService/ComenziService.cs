@@ -9,13 +9,11 @@ namespace Proiect.Services.ComenziService
     public class ComenziService: IComenziService
     {
         public IComenziRepository _comenziRepository;
-        public IArticoleRepository _articoleRepository;
         public IMapper _mapper;
 
-        public ComenziService(IComenziRepository comenziRepository, IMapper mapper, IArticoleRepository articole) {
+        public ComenziService(IComenziRepository comenziRepository, IMapper mapper) {
             _comenziRepository = comenziRepository;
             _mapper = mapper;   
-            _articoleRepository = articole;
         }
         public async Task<List<Comanda>> GetAllC()
         {

@@ -11,17 +11,14 @@ namespace Proiect.Services.ProvideriService
         public IProvideriRepository _provideriRepository;
         public IMapper _mapper;
 
-    public ProvideriService(IProvideriRepository provideriRepository, IMapper mapper) {  _provideriRepository = provideriRepository; _mapper = mapper; }
+    public ProvideriService(IProvideriRepository provideriRepository, IMapper mapper) 
+        {  
+            _provideriRepository = provideriRepository; 
+            _mapper = mapper; 
+        }
     public async Task AddProvider(ProviderDTO provider)
     {
-        var newProvider = new Provider
-        {
-            Nume = provider.Name,
-            Adresa = provider.Adresa,
-            CUI = provider.CUI
-            //articol =provider.articol
-
-        };
+            var newProvider = _mapper.Map<Provider>(provider);
             await _provideriRepository.CreateAsync(newProvider);
             await _provideriRepository.SaveAsync();
 

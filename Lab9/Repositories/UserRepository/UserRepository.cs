@@ -39,11 +39,21 @@ namespace Lab9.Repositories.UserRepository
         {
             return await _projectContext.Users.ToListAsync();
         }
-        public async Task<User> GetUserById(string id)
+        public async Task<User> GetUserById(Guid id)
         {
-            Guid userIdGuid = Guid.Parse(id);
-            return await _projectContext.Users.FirstOrDefaultAsync(u => u.Id == userIdGuid);
+            //Guid userIdGuid = Guid.Parse(id);
+            return await _projectContext.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
+        public User GetUserByIdA(Guid id)
+        {
+            //Guid userIdGuid = Guid.Parse(id);
+            var user = _table.FirstOrDefault(u => u.Id == id);
+
+            return user;
+
+        }
+
+
         //public  async Task<User> FindByUsernameAndPassword(string username, string password)
         //{
         //    return (await _table.FirstOrDefaultAsync(u => u.Username.Equals(username) && u.Password.Equals(password)))!;

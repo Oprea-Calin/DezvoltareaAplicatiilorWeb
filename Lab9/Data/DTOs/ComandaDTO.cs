@@ -9,6 +9,6 @@ namespace Proiect.Data.DTOs
 
         public UserDTO? User {  get; set; }
        // public ICollection<ComandaArticol>? Articole {  get; set; }
-        public List<Guid> IdArticole {  get; set; }
+        //public List<Guid> IdArticole {  get; set; }
     }
 }

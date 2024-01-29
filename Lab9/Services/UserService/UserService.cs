@@ -25,7 +25,7 @@ namespace Lab9.Services.UserService
 
         public Task<User> GetById(Guid id)
         {
-            return _userRepository.GetUserById(id.ToString());
+            return _userRepository.GetUserById(id);
         }
         public Task<User> GetByName(string name)
         {
@@ -87,7 +87,7 @@ namespace Lab9.Services.UserService
 
         public async Task<bool> UpdateUserRole(Guid userId, Role model)
         {
-            var user = await _userRepository.GetUserById(userId.ToString());
+            var user = await _userRepository.GetUserById(userId);
             if (user != null)
             {
                 // Actualizează doar câmpurile care nu sunt nule în DTO

@@ -38,6 +38,13 @@ namespace Lab9.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet("showUserByData")]
+        public async Task<User> GetUserByIdAsync(Guid id)
+        {
+            return (await _userService.GetById(id));
+        }
+
+        [AllowAnonymous]
         [HttpGet("get-user-by-name")]
         public async Task<User> GetUserById(string name)
         {
