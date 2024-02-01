@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Lab9.Helpers.Attributes;
+using Lab9.Models.Enums;
+using Microsoft.AspNetCore.Mvc;
 using Proiect.Data.DTOs;
 using Proiect.Repositories.ProvideriRepository;
 using Proiect.Services.ProvideriService;
@@ -17,6 +19,7 @@ namespace Proiect.Controllers
         }
 
         [HttpPost("Create Provider")]
+        [Authorize(Role.Admin)]
         public async Task<IActionResult> AddProvider(ProviderDTO provider)
         {
 
@@ -24,8 +27,7 @@ namespace Proiect.Controllers
             return Ok();
         }
 
-        [HttpPost("Show all providers")]
-        [HttpGet]
+        [HttpGet("Show all providers")]
         public async Task<IActionResult> GetAllProvideri()
         {
             return Ok(await this._provideriService.GetAllP());
@@ -33,6 +35,7 @@ namespace Proiect.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Role.Admin)]
         public async Task<IActionResult> DeleteProviderByName(string name)
         {
             await _provideriService.DeleteProvider(name);

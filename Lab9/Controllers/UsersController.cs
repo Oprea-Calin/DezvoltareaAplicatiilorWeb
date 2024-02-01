@@ -63,7 +63,7 @@ namespace Lab9.Controllers
 
 
         [AllowAnonymous]
-        [HttpPost("create-user")]
+        [HttpPost("createUser")]
         public async Task<IActionResult> CreateUser(UserRegisterDto userRegisterDto)
         {
             var response = await _userService.Register(userRegisterDto, Models.Enums.Role.User);
@@ -77,7 +77,7 @@ namespace Lab9.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("create-admin")]
+        [HttpPost("createAdmin")]
         public async Task<IActionResult> CreateAdmin(UserRegisterDto userRegisterDto)
         {
             var response = await _userService.Register(userRegisterDto, Models.Enums.Role.Admin);
@@ -92,7 +92,7 @@ namespace Lab9.Controllers
 
 
         [AllowAnonymous]
-        [HttpDelete("Delete-user")]
+        [HttpDelete("DeleteUser")]
         public async Task<IActionResult> DeleteUserAsync(string username)
         {
             await _userService.Delete(username);
