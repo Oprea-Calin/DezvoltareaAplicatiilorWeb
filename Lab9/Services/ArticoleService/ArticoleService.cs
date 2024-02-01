@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Lab9.Data;
+using Lab9.Repositories.GenericRepository;
 using Microsoft.AspNetCore.Mvc;
 using Proiect.Data.DTOs;
 using Proiect.Data.Models;
@@ -6,12 +8,12 @@ using Proiect.Repositories.ArticoleRepository;
 
 namespace Proiect.Services.ArticoleService
 {
-    public class ArticoleService: IArticoleService
+    public class ArticoleService: GenericRepository<Articol>,IArticoleService
     {
         public IArticoleRepository _articoleRepository;
         public IMapper _mapper;
 
-        public ArticoleService(IArticoleRepository articoleRepository, IMapper mapper)
+        public ArticoleService(IArticoleRepository articoleRepository, IMapper mapper, ProjectContext projectContext): base(projectContext)
         {
             _articoleRepository = articoleRepository;
             _mapper = mapper;
@@ -30,6 +32,19 @@ namespace Proiect.Services.ArticoleService
             return articols;
         }
 
+        public Articol FindByName(string name)
+        {
+            return _table.FirstOrDefault(u => u.Denumire.Equals(name));
+        }
+
+        public async Task<Articol> DeleteArticol(string nume)
+        {
+            var articol = FindByName(nume);
+            if (articol == null) { throw new Exception("Articol not found!"); }
+            _projectContext.Articole.Remove(articol);
+            await _projectContext.SaveChangesAsync();
+            return articol;
+        }
         
     }
 }

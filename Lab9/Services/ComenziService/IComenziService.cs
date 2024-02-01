@@ -8,6 +8,9 @@ namespace Proiect.Services.ComenziService
     {
         public Task AddComanda(ComandaDTO comanda);
         public Task<List<Comanda>> GetAllC();
+        Comanda FindById(Guid Id);
+
+        Task<Comanda> DeleteComanda(Guid Id);
 
     }
 }

@@ -8,6 +8,5 @@ namespace Proiect.Repositories.ProvideriRepository
     {
         public ProvideriRepository(ProjectContext projectContext) :base(projectContext){ }
 
-
     }
 }

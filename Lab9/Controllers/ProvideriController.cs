@@ -24,11 +24,19 @@ namespace Proiect.Controllers
             return Ok();
         }
 
+        [HttpPost("Show all providers")]
         [HttpGet]
         public async Task<IActionResult> GetAllProvideri()
         {
             return Ok(await this._provideriService.GetAllP());
 
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteProviderByName(string name)
+        {
+            await _provideriService.DeleteProvider(name);
+            return Ok();
         }
     }
 }

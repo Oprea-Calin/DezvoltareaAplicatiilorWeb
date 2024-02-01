@@ -7,5 +7,8 @@ namespace Proiect.Services.ArticoleService
     {
         Task AddArticol(ArticolDTO articol);
         Task<List<Articol>> GetAllAsync();
+        Articol FindByName(string name);
+
+        Task<Articol> DeleteArticol(string nume);
     }
 }

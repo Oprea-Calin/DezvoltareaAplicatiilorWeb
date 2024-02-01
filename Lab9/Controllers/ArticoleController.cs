@@ -36,5 +36,12 @@ namespace Proiect.Controllers
             await _comenziArticolService.AddArticolToComanda( idComanda, idArticol);
             return Ok();
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteArticolByName(string name)
+        {
+            await _articoleService.DeleteArticol(name);
+            return Ok();
+        }
     }
 }

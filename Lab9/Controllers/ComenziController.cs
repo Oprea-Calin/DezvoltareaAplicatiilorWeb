@@ -2,6 +2,7 @@
 using Lab9.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Proiect.Data.DTOs;
+using Proiect.Data.Models;
 using Proiect.Services.ComenziArticoleService;
 using Proiect.Services.ComenziService;
 
@@ -21,7 +22,7 @@ namespace Proiect.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Role.Admin,Role.User)]
+        [Authorize(Role.Admin,Role.User)]
         public async Task<IActionResult> GetAllComenzi()
         {
             return Ok(await this._comenziService.GetAllC());
@@ -34,14 +35,20 @@ namespace Proiect.Controllers
         }
 
         [HttpPost("Add Articol to comanda")]
-        //[Authorize(Role.Admin,Role.User)]
+        [Authorize(Role.Admin,Role.User)]
         public async Task<IActionResult> AddArticolToComanda(Guid IdComanda, Guid IdUser)
         {
             await this._comenziArticolService.AddArticolToComanda(IdComanda,IdUser);
             return Ok();
         }
+        
 
-        //[HttpPost]
-        //public 
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteComanda(Guid id)
+        {
+            await _comenziService.DeleteComanda(id);
+            return Ok();
+        }
     }
 }

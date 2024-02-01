@@ -23,29 +23,24 @@ namespace Lab9.Controllers
             _userService = userService;
         }
 
-        [AllowAnonymous]
-        [HttpGet]
-        public async Task<IActionResult> Test(UserLoginDto userLoginDto)
-        {
-            return Ok("Users");
-        }
+       
 
         [AllowAnonymous]
-        [HttpGet("showData")]
+        [HttpGet("getAllUsers")]
         public async Task<List<User>> GetAllUsers()
         {
             return (await _userService.GetAllAsync());
         }
 
         [AllowAnonymous]
-        [HttpGet("showUserByData")]
+        [HttpGet("getUserById")]
         public async Task<User> GetUserByIdAsync(Guid id)
         {
             return (await _userService.GetById(id));
         }
 
         [AllowAnonymous]
-        [HttpGet("get-user-by-name")]
+        [HttpGet("getUserByName")]
         public async Task<User> GetUserById(string name)
         {
             return (await _userService.GetByName(name));
