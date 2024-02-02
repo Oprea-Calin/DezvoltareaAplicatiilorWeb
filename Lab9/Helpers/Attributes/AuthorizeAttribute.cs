@@ -19,7 +19,7 @@ namespace Lab9.Helpers.Attributes
             var allowAnonymous = context.ActionDescriptor.EndpointMetadata.OfType<AllowAnonymousAttribute>().Any();
             if (allowAnonymous) return;
 
-            // check if we have the user in our context
+           
             User? user = context.HttpContext.Items["User"] as User;
             if (user == null || (_roles.Any() && !_roles.Contains(user.Role)))
             {

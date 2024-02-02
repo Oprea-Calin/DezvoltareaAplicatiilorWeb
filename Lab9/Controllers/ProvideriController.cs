@@ -18,8 +18,8 @@ namespace Proiect.Controllers
             _provideriService = provideriService;
         }
 
+        [Authorize]
         [HttpPost("Create Provider")]
-        [Authorize(Role.Admin)]
         public async Task<IActionResult> AddProvider(ProviderDTO provider)
         {
 
@@ -34,14 +34,15 @@ namespace Proiect.Controllers
 
         }
 
+        [Authorize]
         [HttpDelete]
-        [Authorize(Role.Admin)]
         public async Task<IActionResult> DeleteProviderByName(string name)
         {
             await _provideriService.DeleteProvider(name);
             return Ok();
         }
 
+        [Authorize]
         [HttpPatch("Update Provider")]
         public async Task<IActionResult> UpdateProvider(UpdateProviderDTo provider)
         {

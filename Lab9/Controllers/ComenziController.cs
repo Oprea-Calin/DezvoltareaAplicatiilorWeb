@@ -34,16 +34,16 @@ namespace Proiect.Controllers
             return Ok();
         }
 
+        [Authorize(Role.Admin, Role.User)]
         [HttpPost("Add Articol to comanda")]
-        [Authorize(Role.Admin,Role.User)]
         public async Task<IActionResult> AddArticolToComanda(Guid IdComanda, Guid IdUser)
         {
             await this._comenziArticolService.AddArticolToComanda(IdComanda,IdUser);
             return Ok();
         }
-        
 
 
+        [Authorize(Role.Admin, Role.User)]
         [HttpDelete]
         public async Task<IActionResult> DeleteComanda(Guid id)
         {

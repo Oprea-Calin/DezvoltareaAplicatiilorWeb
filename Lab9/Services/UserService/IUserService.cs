@@ -9,6 +9,7 @@ namespace Lab9.Services.UserService
     {
         Task<UserLoginResponse> Login(UserLoginDto user);
         Task<User> GetById(Guid id);
+        User GetByIdUser(Guid id);
 
         Task<bool> Register(UserRegisterDto userRegisterDto, Role userRole);
         Task<bool> UpdateUserRole(Guid userId, Role model);

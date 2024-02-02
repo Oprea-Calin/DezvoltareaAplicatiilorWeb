@@ -19,7 +19,7 @@ namespace Lab9.Helpers
             var userId = jwtUtil.GetUserId(token);
             if (userId != null)
             {
-                context.Items["User"] = userService.GetById(userId.Value);
+                context.Items["User"] = userService.GetById(userId.Value);            
             }
 
             await _next(context);

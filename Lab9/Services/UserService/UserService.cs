@@ -24,6 +24,10 @@ namespace Lab9.Services.UserService
             _mapper = mapper;
         }
 
+        public User GetByIdUser(Guid id)
+        {
+            return _userRepository.FindById(id);
+        }
         public Task<User> GetById(Guid id)
         {
             return _userRepository.GetUserById(id);
@@ -91,14 +95,13 @@ namespace Lab9.Services.UserService
             var user = await _userRepository.GetUserById(userId);
             if (user != null)
             {
-                // Actualizează doar câmpurile care nu sunt nule în DTO
                 user.Role = model;
                 user.DateModified = DateTime.UtcNow;
 
                 await _userRepository.UpdateAsync(user);
-                return true; // Returnează true dacă actualizarea a fost un succes
+                return true; 
             }
-            return false; // Returnează false dacă utilizatorul nu a fost găsit
+            return false; 
         }
 
         public async Task<User> Delete(string name)

@@ -17,7 +17,6 @@ namespace Lab9.Controllers
     public class UsersController : ControllerBase
     {   
         private readonly IUserService _userService;
-        private readonly JwtUtils _JwtToken;
 
         public UsersController(IUserService userService)
         {
@@ -67,7 +66,7 @@ namespace Lab9.Controllers
         [HttpPost("createUser")]
         public async Task<IActionResult> CreateUser(UserRegisterDto userRegisterDto)
         {
-            var response = await _userService.Register(userRegisterDto, Models.Enums.Role.User);
+            var response = await _userService.Register(userRegisterDto, Role.User);
 
             if (response == false)
             {
@@ -81,7 +80,7 @@ namespace Lab9.Controllers
         [HttpPost("createAdmin")]
         public async Task<IActionResult> CreateAdmin(UserRegisterDto userRegisterDto)
         {
-            var response = await _userService.Register(userRegisterDto, Models.Enums.Role.Admin);
+            var response = await _userService.Register(userRegisterDto, Role.Admin);
 
             if (response == false)
             {
@@ -91,8 +90,7 @@ namespace Lab9.Controllers
             return Ok(response);
         }
 
-
-        [AllowAnonymous]
+        [Authorize(Role.Admin)]
         [HttpDelete("DeleteUser")]
         public async Task<IActionResult> DeleteUserAsync(string username)
         {
@@ -100,6 +98,7 @@ namespace Lab9.Controllers
             return Ok();
         }
 
+        [Authorize(Role.Admin)]
         [HttpPatch("Update User")]
         public async Task<IActionResult> UpdateUser(UserUpdateDTO user)
         {

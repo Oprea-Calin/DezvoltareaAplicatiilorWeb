@@ -6,5 +6,6 @@ namespace Lab9.Helpers.JwtUtil
     {
         public string GenerateJwtToken(User user);
         public Guid? GetUserId(string? token);
+        string? GetUserRole(string? token);
     }
 }

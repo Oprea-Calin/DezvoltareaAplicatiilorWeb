@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Lab9.Helpers.Attributes;
+using Lab9.Models.Enums;
+using Microsoft.AspNetCore.Mvc;
 using Proiect.Data.DTOs;
 using Proiect.Services.ArticoleService;
 using Proiect.Services.ComenziArticoleService;
@@ -18,6 +20,7 @@ namespace Proiect.Controllers
             _comenziArticolService = comenziArticolService;
         }
 
+        [Authorize(Role.Admin)]
         [HttpPost("Create Articol")]
         public async Task<IActionResult> AddArticol(ArticolDTO articol)
         {
@@ -25,11 +28,14 @@ namespace Proiect.Controllers
             return Ok();
         }
 
+        [Authorize(Role.Admin, Role.User)]
         [HttpGet]
         public async Task<IActionResult> GetAllArticole()
         {
             return Ok(await this._articoleService.GetAllAsync());
         }
+
+        [Authorize(Role.Admin, Role.User)]
         [HttpPost("AddArticolToComanda")]
         public async Task<IActionResult> AddArticolToComanda(Guid idArticol,Guid idComanda)
         {
@@ -37,6 +43,8 @@ namespace Proiect.Controllers
             return Ok();
         }
 
+
+        [Authorize(Role.Admin)]
         [HttpDelete]
         public async Task<IActionResult> DeleteArticolByName(string name)
         {
@@ -44,6 +52,7 @@ namespace Proiect.Controllers
             return Ok();
         }
 
+        [Authorize(Role.Admin)]
         [HttpPatch("Update Articol")]
         public async Task<IActionResult> UpdateArticol(ArticolUpdateDTO articol)
         {
