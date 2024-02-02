@@ -32,6 +32,8 @@ namespace Lab9.Helpers
                     
                 })) ;
             CreateMap<ArticolDTO, Articol>();
+            CreateMap<User, UserUpdateDTO>();
+            CreateMap<UserUpdateDTO, User>();
         }
 
     }

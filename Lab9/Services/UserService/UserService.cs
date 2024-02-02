@@ -7,6 +7,7 @@ using Lab9.Repositories.UserRepository;
 using BCryptNet = BCrypt.Net.BCrypt;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Proiect.Data.DTOs;
 
 namespace Lab9.Services.UserService
 {
@@ -46,7 +47,7 @@ namespace Lab9.Services.UserService
 
             if (user == null || !BCryptNet.Verify(userDto.Password, user.Password))
             {
-                return null; // or throw exception
+                return null; 
             }
             if (user == null) return null;
 
@@ -103,7 +104,30 @@ namespace Lab9.Services.UserService
         public async Task<User> Delete(string name)
         {
            return await _userRepository.DeleteUser(name);
-            
+
         }
+
+        public async Task Update(UserUpdateDTO user) 
+        {
+            var existingUser = await _userRepository.GetUserById(user.Id);
+            if(existingUser == null)
+            {
+                throw new Exception("User not found");
+            }
+            else
+            {
+                existingUser.Username = user.Username;
+                existingUser.FirstName = user.FirstName;
+                existingUser.LastName = user.LastName;
+                existingUser.Email = user.Email;
+                existingUser.Role = user.Role;
+                existingUser.Password = BCryptNet.HashPassword(user.Password);
+            }
+            await _userRepository.UpdateAsync(_mapper.Map<User>(existingUser));
+
+
+
+        }
+
     }
 }

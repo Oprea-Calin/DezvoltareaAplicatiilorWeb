@@ -1,6 +1,7 @@
 ﻿using Lab9.Data.DTOs;
 using Lab9.Models;
 using Lab9.Models.Enums;
+using Proiect.Data.DTOs;
 
 namespace Lab9.Services.UserService
 {
@@ -14,6 +15,8 @@ namespace Lab9.Services.UserService
         Task<List<User>> GetAllAsync();
         Task<User> Delete(string name);
         Task<User> GetByName(string name);
+
+        Task Update(UserUpdateDTO user);
 
     }
 }

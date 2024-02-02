@@ -8,6 +8,7 @@ using System.Data;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Lab9.Models;
+using Proiect.Data.DTOs;
 
 namespace Lab9.Controllers
 {
@@ -96,6 +97,13 @@ namespace Lab9.Controllers
         public async Task<IActionResult> DeleteUserAsync(string username)
         {
             await _userService.Delete(username);
+            return Ok();
+        }
+
+        [HttpPatch("Update User")]
+        public async Task<IActionResult> UpdateUser(UserUpdateDTO user)
+        {
+            await _userService.Update(user);
             return Ok();
         }
 
