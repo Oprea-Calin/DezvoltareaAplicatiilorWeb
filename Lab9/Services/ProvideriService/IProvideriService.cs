@@ -8,5 +8,6 @@ namespace Proiect.Services.ProvideriService
         Task AddProvider(ProviderDTO provider);
         Task<List<Provider>> GetAllP();
         Task<Provider> DeleteProvider(string name);
+        Task Update(UpdateProviderDTo provider);
     }
 }

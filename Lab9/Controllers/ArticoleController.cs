@@ -43,5 +43,12 @@ namespace Proiect.Controllers
             await _articoleService.DeleteArticol(name);
             return Ok();
         }
+
+        [HttpPatch("Update Articol")]
+        public async Task<IActionResult> UpdateArticol(ArticolUpdateDTO articol)
+        {
+            await _articoleService.Update(articol);
+            return Ok();
+        }
     }
 }

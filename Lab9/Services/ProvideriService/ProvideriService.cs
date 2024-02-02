@@ -49,6 +49,20 @@ namespace Proiect.Services.ProvideriService
             await _projectContext.SaveChangesAsync();
             return provider;
         }
+
+        public async Task Update(UpdateProviderDTo provider)
+        {
+            var existingProvider = await _provideriRepository.GetProviderById(provider.Id);
+            if (existingProvider == null) throw new Exception("Provider not found!");
+            else
+            {
+                existingProvider.CUI = provider.CUI;
+                existingProvider.Nume = provider.Nume;
+                existingProvider.Adresa = provider.Adresa;
+            }
+            await _provideriRepository.UpdateAsync(_mapper.Map<Provider>(existingProvider));
+
+        }
     }
 }
 

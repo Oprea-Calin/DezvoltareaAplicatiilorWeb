@@ -41,5 +41,12 @@ namespace Proiect.Controllers
             await _provideriService.DeleteProvider(name);
             return Ok();
         }
+
+        [HttpPatch("Update Provider")]
+        public async Task<IActionResult> UpdateProvider(UpdateProviderDTo provider)
+        {
+            await _provideriService.Update(provider);
+            return Ok();    
+        }
     }
 }

@@ -45,6 +45,26 @@ namespace Proiect.Services.ArticoleService
             await _projectContext.SaveChangesAsync();
             return articol;
         }
+
+        public async Task Update(ArticolUpdateDTO articol)
+        {
+            var existingArticol = await _articoleRepository.GetArticolById(articol.Id);
+
+
+            if(existingArticol == null) { throw new Exception("Articol does not exist!"); }
+            else
+            {
+                existingArticol.Descriere=articol.Descriere;
+                existingArticol.Denumire=articol.Denumire;
+                existingArticol.Pret=articol.Pret;
+                existingArticol.Cantitate=articol.Cantitate;
+            }
+            await _articoleRepository.UpdateAsync(_mapper.Map<Articol>(existingArticol));
+
+
+
+
+        }
         
     }
 }

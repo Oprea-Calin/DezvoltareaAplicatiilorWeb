@@ -10,5 +10,6 @@ namespace Proiect.Services.ArticoleService
         Articol FindByName(string name);
 
         Task<Articol> DeleteArticol(string nume);
+        Task Update(ArticolUpdateDTO articol);
     }
 }
